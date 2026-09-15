@@ -15,6 +15,17 @@ class_name Player
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+	_update_physics_tps()
+
+
+func _update_physics_tps() -> void:
+	var monitor_refresh_rate: float = DisplayServer.screen_get_refresh_rate()
+	if monitor_refresh_rate <= 0:
+		monitor_refresh_rate = 60
+	
+	var target_clicks: int = int(monitor_refresh_rate)
+	Engine.physics_ticks_per_second = target_clicks
 
 
 func _unhandled_input(event: InputEvent) -> void:
